@@ -17,7 +17,11 @@ Base.metadata.create_all(engine)
 
 # BEGIN (write your solution here)
 def get_movies_with_directors(session):
-    movies = session.query(Movie).options(joinedload(Movie.director)).order_by(Movie.title).all()
-    
-    return movies
+    movies = (
+        session.query(Movie)
+        .options(joinedload(Movie.director))
+        .order_by(Movie.title)
+        .all()
+    )
+    return movies 
 # END

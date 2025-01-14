@@ -16,18 +16,15 @@ Base.metadata.create_all(engine)
 
 # BEGIN (write your solution here)
 def get_movies_with_directors(session):
-    stmt = (
-        select(Movie, Director)
-        .join(Director)
+    movies = (
+        session.query(Movie)
+        .join(Movie.director)
         .order_by(Movie.title)
+        .all()
     )
-    
-    results = session.execute(stmt).all()
-    
-    movies_with_directors = [
-        f"{movie.title} by {director.name}, released on {movie.release_date}, duration: {movie.duration} min, genre: {movie.genre}, rating: {movie.rating}"
-        for movie, director in results
+    return [
+        f"{movie.title} by {movie.director.name}, released on {movie.release_date}, "
+        f"duration: {movie.duration} min, genre: {movie.genre}, rating: {movie.rating}"
+        for movie in movies
     ]
-    
-    return movies_with_directors
 # END
