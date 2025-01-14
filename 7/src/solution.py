@@ -20,8 +20,6 @@ def delete_director(session, director_id):
     if director:
         session.delete(director)
         session.commit()
-        print(f"Director with ID {director_id} and their movies have been deleted.")
     else:
         session.rollback()
-        print(f"Director with ID {director_id} not found.")
 # END
